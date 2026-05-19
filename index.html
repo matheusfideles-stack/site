@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Meu Amor 💕</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        :root{
+            --rosa:#ff6b9d;
+            --rosa-escuro:#e91e63;
+            --rosa-claro:#ffe4ec;
+            --fundo:#fff0f5;
+        }
+
+        body{
+            font-family:'Poppins',sans-serif;
+            background:var(--fundo);
+            color:#5a3e4a;
+            overflow-x:hidden;
+            min-height:100vh;
+        }
+
+        /* Fundo */
+
+        .hearts-bg{
+            position:fixed;
+            inset:0;
+            pointer-events:none;
+            z-index:0;
+        }
+
+        .floating-heart{
+            position:absolute;
+            font-size:20px;
+            animation:float 8s linear infinite;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(100vh) scale(0);
+                opacity:1;
+            }
+
+            100%{
+                transform:translateY(-100px) scale(1);
+                opacity:0;
+            }
+        }
+
+        /* Hero */
+
+        .hero{
+            position:relative;
+            z-index:2;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:20px;
+            background:linear-gradient(
+                180deg,
+                var(--fundo) 0%,
+                var(--rosa-claro) 100%
+            );
+        }
+
+        .title{
+            font-family:'Dancing Script',cursive;
+            font-size:3.2rem;
+            color:var(--rosa-escuro);
+            margin-bottom:15px;
+        }
+
+        .subtitle{
+            font-size:1.1rem;
+            max-width:550px;
+            line-height:1.8;
+            margin-bottom:30px;
+        }
+
+        /* Medidor */
+
+        .love-meter{
+            background:white;
+            padding:30px;
+            border-radius:25px;
+            box-shadow:0 15px 40px rgba(233,30,99,.2);
+            margin-bottom:25px;
+            max-width:350px;
+            width:90%;
+        }
+
+        .heart-icon{
+            font-size:3.5rem;
+            margin-bottom:10px;
+            animation:heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat{
+
+            0%,100%{
+                transform:scale(1);
+            }
+
+            50%{
+                transform:scale(1.12);
+            }
+        }
+
+        .percentage{
+            font-family:'Dancing Script',cursive;
+            font-size:3.5rem;
+            color:var(--rosa-escuro);
+        }
+
+        .label-text{
+            font-size:1rem;
+            color:#888;
+            margin-bottom:15px;
+        }
+
+        .progress-bar{
+            width:100%;
+            height:20px;
+            background:var(--rosa-claro);
+            border-radius:50px;
+            overflow:hidden;
+        }
+
+        .progress-fill{
+            height:100%;
+            width:0%;
+            background:linear-gradient(
+                90deg,
+                var(--rosa),
+                var(--rosa-escuro)
+            );
+            border-radius:50px;
+            transition:width .4s ease;
+        }
+
+        /* Botão */
+
+        .love-button{
+            background:linear-gradient(
+                135deg,
+                var(--rosa-escuro),
+                #c2185b
+            );
+
+            color:white;
+            border:none;
+            padding:18px 45px;
+            font-size:1.4rem;
+            border-radius:50px;
+            cursor:pointer;
+            font-family:'Dancing Script',cursive;
+            box-shadow:0 8px 25px rgba(233,30,99,.4);
+            transition:.3s;
+        }
+
+        .love-button:hover{
+            transform:scale(1.08);
+        }
+
+        .reaction-message{
+            margin-top:20px;
+            min-height:35px;
+            font-family:'Dancing Script',cursive;
+            font-size:1.5rem;
+            color:var(--rosa-escuro);
+        }
+
+        /* CARTA */
+
+        .envelope-container{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:100px 20px;
+            position:relative;
+            z-index:2;
+        }
+
+        .envelope{
+    width:380px;
+    height:250px;
+    position:relative;
+    overflow:visible;
+}
+
+        /* Base */
+
+        .envelope-base{
+            width:100%;
+            height:100%;
+            background:#ff8fb1;
+            border-radius:15px;
+            position:absolute;
+            bottom:0;
+            overflow:hidden;
+            box-shadow:0 15px 35px rgba(0,0,0,.2);
+        }
+
+        /* Tampa */
+
+        .envelope-top{
+            position:absolute;
+            width:100%;
+            height:100%;
+            background:linear-gradient(
+                135deg,
+                #ff6b9d,
+                #ff4081
+            );
+
+            clip-path:polygon(
+                0 0,
+                50% 55%,
+                100% 0
+            );
+
+            transform-origin:top;
+            transition:1s;
+            z-index:5;
+            border-radius:15px;
+        }
+
+        /* Carta */
+
+        .letter{
+    position:absolute;
+    width:92%;
+    height:430px;
+    background:white;
+    left:4%;
+    bottom:-260px;
+    border-radius:15px;
+    padding:25px;
+    text-align:left;
+    transition:1s;
+    z-index:1;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    overflow-y:auto;
+}
+
+        .letter h2{
+            color:var(--rosa-escuro);
+            margin-bottom:15px;
+            font-family:'Dancing Script',cursive;
+            font-size:2.2rem;
+            text-align:center;
+        }
+
+        .letter p{
+            line-height:1.9;
+            font-size:1rem;
+            white-space:pre-line;
+        }
+
+        /* Abrir */
+
+        .envelope.open .envelope-top{
+            transform:rotateX(180deg);
+        }
+
+        .envelope.open .letter{
+    transform:translateY(-340px);
+    z-index:20;
+}
+
+
+        /* Footer */
+
+        footer{
+            position:relative;
+            z-index:2;
+            padding:40px 20px;
+            background:var(--rosa-escuro);
+            color:white;
+            text-align:center;
+        }
+
+        footer p{
+            font-family:'Dancing Script',cursive;
+            font-size:1.8rem;
+        }
+
+        .hearts-footer{
+            margin-top:15px;
+            font-size:2.5rem;
+        }
+
+        /* Overlay */
+
+        .victory-overlay{
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(255,240,245,.97);
+            z-index:9999;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+        }
+
+        .victory-overlay.show{
+            display:flex;
+            animation:fadeIn .5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+            }
+
+            to{
+                opacity:1;
+            }
+        }
+
+        .victory-heart{
+            font-size:10rem;
+            animation:heartbeat 1s infinite;
+        }
+
+        .victory-text{
+            font-family:'Dancing Script',cursive;
+            font-size:3rem;
+            color:var(--rosa-escuro);
+            margin-top:20px;
+        }
+
+        /* Fechar */
+
+        .close-overlay{
+            margin-top:30px;
+            padding:15px 35px;
+            border:none;
+            border-radius:40px;
+            background:var(--rosa-escuro);
+            color:white;
+            font-size:1.2rem;
+            cursor:pointer;
+        }
+
+        /* Corações clique */
+
+        .click-heart{
+            position:fixed;
+            font-size:2rem;
+            pointer-events:none;
+            z-index:1000;
+            animation:clickAnim 1s ease-out forwards;
+        }
+
+        @keyframes clickAnim{
+
+            0%{
+                transform:translateY(0) scale(1);
+                opacity:1;
+            }
+
+            100%{
+                transform:translateY(-150px) scale(.5);
+                opacity:0;
+            }
+        }
+
+        /* Chuva */
+
+        .rain-heart{
+            position:fixed;
+            top:-20px;
+            pointer-events:none;
+            z-index:99999;
+            animation:fall linear forwards;
+        }
+
+        @keyframes fall{
+
+            to{
+                transform:translateY(110vh);
+                opacity:0;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .title{
+                font-size:2.3rem;
+            }
+
+            .victory-text{
+                font-size:2rem;
+            }
+
+            .envelope{
+                transform:scale(.85);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <audio id="musica" loop>
+    <source src="Henrique e Juliano - Jesus Apaga A Luz - (DVD Ao vivo em Brasília) [Vídeo Oficial] - Henrique e Juliano (youtube).mp3" type="audio/mpeg">
+</audio>
+
+    <!-- Fundo -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Overlay -->
+    <div class="victory-overlay" id="victoryOverlay">
+
+        <div class="victory-heart">
+            ❤️
+        </div>
+
+        <div class="victory-text">
+            EU TE AMO!
+        </div>
+
+        <button
+            class="close-overlay"
+            onclick="fecharOverlay()"
+        >
+            Fechar 💕
+        </button>
+
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <h1 class="title">
+            Para você, meu amor ❤️
+        </h1>
+
+        <p class="subtitle">
+            Cada momento com você é especial.
+            Você faz meus dias mais felizes 💕
+        </p>
+
+        <!-- Medidor -->
+        <div class="love-meter">
+
+            <div class="heart-icon">
+                ❤️
+            </div>
+
+            <div
+                class="percentage"
+                id="percentageDisplay"
+            >
+                0%
+            </div>
+
+            <div class="label-text">
+                de amor por você
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <!-- Botão -->
+        <button
+            class="love-button"
+            onclick="aumentarAmor()"
+        >
+            Clique para aumentar!!!!
+        </button>
+
+        <button class="love-button" onclick="toggleMusica()">
+     Música
+</button>
+
+        <div
+            class="reaction-message"
+            id="reactionMessage"
+        ></div>
+
+    </section>
+
+    <!-- Carta -->
+    <section class="envelope-container">
+
+        <div
+            class="envelope"
+            id="envelope"
+            onclick="abrirCarta()"
+        >
+
+            <div class="envelope-top"></div>
+
+            <div class="envelope-base"></div>
+
+            <div class="letter">
+
+                <h2>
+                    Para você ❤️
+                </h2>
+
+                <p>
+Meu amor,
+
+Eu gosto muito de você.
+Seu sorriso, seu jeito e sua presença fazem meus dias melhores.
+
+Cada segundo ao seu lado é precioso para mim.
+Me desculpa por te fazer raiva às vezes, ok?
+
+Saiba que eu gosto muitoooooooo de você.
+Vou fazer de tudo para te ver feliz e sorrindo sempre.
+
+Com amor,
+Seu amor ❤️
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            Eu te amo muitoooo!
+        </p>
+
+        <div class="hearts-footer">
+            ❤️❤️❤️
+        </div>
+
+    </footer>
+
+    <script>
+
+        let percentual = 0;
+
+        const maximo = 1000;
+
+        const display =
+            document.getElementById(
+                'percentageDisplay'
+            );
+
+        const barra =
+            document.getElementById(
+                'progressFill'
+            );
+
+        const msg =
+            document.getElementById(
+                'reactionMessage'
+            );
+
+        const vitoria =
+            document.getElementById(
+                'victoryOverlay'
+            );
+
+        const mensagens = [
+
+            "Continua apertando!!! 💕",
+            "Só mais um pouco amor ❤️",
+            "Quase lá, meu bem! 💖",
+
+        ];
+
+        // Principal
+
+        function aumentarAmor(){
+
+            const incremento =
+                Math.floor(
+                    Math.random() * 50
+                ) + 30;
+
+            percentual += incremento;
+
+            if(percentual >= maximo){
+
+                percentual = maximo;
+
+                vitoria.classList.add('show');
+
+                msg.textContent =
+                    "💕💕💕 1000%!!! 💕💕💕";
+
+                chuvaCoracoes();
+            }
+
+            display.textContent =
+                percentual + "%";
+
+            barra.style.width =
+                (percentual / maximo * 100)
+                + "%";
+
+            if(percentual < maximo){
+
+                const randomMsg =
+                    mensagens[
+                        Math.floor(
+                            Math.random()
+                            * mensagens.length
+                        )
+                    ];
+
+                msg.textContent =
+                    randomMsg;
+            }
+
+            criarCoracaoClique();
+        }
+
+        // Fechar
+
+        function fecharOverlay(){
+
+            vitoria.classList.remove(
+                'show'
+            );
+        }
+
+        // Abrir carta
+
+        function abrirCarta(){
+
+            document
+                .getElementById('envelope')
+                .classList.toggle('open');
+
+            chuvaCoracoes();
+        }
+
+        // Clique
+
+        function criarCoracaoClique(){
+
+            const coracao =
+                document.createElement('div');
+
+            coracao.className =
+                'click-heart';
+
+            coracao.innerHTML =
+                '❤️';
+
+            coracao.style.left =
+                Math.random()
+                * window.innerWidth
+                + 'px';
+
+            coracao.style.top =
+                Math.random()
+                * window.innerHeight
+                + 'px';
+
+            document.body.appendChild(
+                coracao
+            );
+
+            setTimeout(()=>{
+
+                coracao.remove();
+
+            },1000);
+        }
+
+        // Fundo
+
+        function criarCoracaoFlutuante(){
+
+            const container =
+                document.getElementById(
+                    'heartsBg'
+                );
+
+            const coracao =
+                document.createElement('div');
+
+            coracao.className =
+                'floating-heart';
+
+            coracao.innerHTML =
+                Math.random() > 0.5
+                ? '❤️'
+                : '💕';
+
+            coracao.style.left =
+                Math.random() * 100
+                + 'vw';
+
+            coracao.style.fontSize =
+                (
+                    Math.random() * 15
+                    + 12
+                ) + 'px';
+
+            coracao.style.animationDuration =
+                (
+                    Math.random() * 4
+                    + 6
+                ) + 's';
+
+            container.appendChild(
+                coracao
+            );
+
+            setTimeout(()=>{
+
+                coracao.remove();
+
+            },10000);
+        }
+
+        setInterval(
+            criarCoracaoFlutuante,
+            400
+        );
+
+        // Chuva
+
+        function chuvaCoracoes(){
+
+            for(let i=0;i<60;i++){
+
+                const heart =
+                    document.createElement(
+                        'div'
+                    );
+
+                heart.classList.add(
+                    'rain-heart'
+                );
+
+                heart.innerHTML =
+                    Math.random() > 0.5
+                    ? '❤️'
+                    : '💕';
+
+                heart.style.left =
+                    Math.random() * 100
+                    + 'vw';
+
+                heart.style.fontSize =
+                    (
+                        Math.random() * 25
+                        + 15
+                    ) + 'px';
+
+                heart.style.animationDuration =
+                    (
+                        Math.random() * 3
+                        + 2
+                    ) + 's';
+
+                document.body.appendChild(
+                    heart
+                );
+
+                setTimeout(()=>{
+
+                    heart.remove();
+
+                },5000);
+            }
+        }
+
+        // Inicial
+
+        for(let i=0;i<10;i++){
+
+            setTimeout(()=>{
+
+                criarCoracaoFlutuante();
+
+            },i * 300);
+        }
+
+        const musica =
+    document.getElementById('musica');
+
+musica.currentTime = 51;
+
+document.addEventListener('click', () => {
+
+    musica.play();
+
+}, { once:true });
+
+    </script>
+
+</body>
+</html>
