@@ -420,7 +420,7 @@
 <body>
 
     <audio id="musica" loop>
-    <source src="Henrique e Juliano - Jesus Apaga A Luz - (DVD Ao vivo em Brasília) [Vídeo Oficial] - Henrique e Juliano (youtube).mp3" type="audio/mpeg">
+    <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
     <!-- Fundo -->
@@ -809,8 +809,14 @@ Seu amor ❤️
         const musica =
     document.getElementById('musica');
 
-musica.currentTime = 51;
+// Espera a música carregar
+musica.addEventListener('loadedmetadata', () => {
 
+    // Começa em 40 segundos
+    musica.currentTime = 51;
+});
+
+// Primeiro clique inicia
 document.addEventListener('click', () => {
 
     musica.play();
